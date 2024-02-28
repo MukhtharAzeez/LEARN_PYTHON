@@ -1,0 +1,14 @@
+{% comment %} Removing hardcoded URLs in templates¶ {% endcomment %}
+<h1><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></h1>
+{% comment %} The problem with this hardcoded, tightly-coupled approach is that it becomes challenging to change URLs on projects with a lot of templates. 
+However, since you defined the name argument in the path() functions in the polls.urls module,
+ you can remove a reliance on specific URL paths defined in your url configurations by using the {% url %} template tag: {% endcomment %}
+<h1><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></h1>
+{% comment %} <h1><a href="{% url 'detail' question.id 8 %}">{{ question.question_text }}</a></h1> {% endcomment %}
+
+
+<ul>
+{% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }}</li>
+{% endfor %}
+</ul>
